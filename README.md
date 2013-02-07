@@ -40,6 +40,7 @@ CDB_Reader(opts, callback) - The CDB Reader object. returns a cdb object that ha
 - cache (string) - boolean that when set to true will cache table location and size within the cdb. false by default. setting this will speed up the lookups at a small memory increase (optional)
 
 **CDB Functions:**
+
 find(key,callback,offset) - Finds the first instance of a key and returns the value in the callback. false if the key was not found.
 
 	key (string) - they key to look up the value for
