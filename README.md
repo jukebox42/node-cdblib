@@ -10,7 +10,7 @@ More information on CDB here: http://cr.yp.to/cdb.html
 
 Through NPM
 
-	NOT IN NPM YET
+	npm install node-cdblib
 
 Through Git
 
