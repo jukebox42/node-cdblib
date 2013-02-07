@@ -1,0 +1,35 @@
+{
+	"name": "node-cdblib",
+	"version": "0.0.1",
+	"description": "Asynchronous reading from a Constant Database (CDB)",
+	"main": "./lib/cdblib.js",
+	"repository": {
+		"type": "git",
+		"url": "http://github.com/jukebox42/node-cdblib.git"
+	},
+	"keywords": [
+		"CDB",
+		"cdblib",
+		"constant database",
+		"database",
+		"db"
+	],
+	"author": {
+		"name": "John Norton",
+		"email": "jukebox42@gmail.com"
+	},
+	"dependencies": {
+		"binary": "~0.3.0",
+		"bufferpack": "~0.0.6"
+	},
+	"devDependencies": {
+		"nodeunit": "*"
+	},
+	"scripts": {
+		"test": "nodeunit t/"
+	},
+	"license": "MIT",
+	"engine": {
+		"node": ">=0.4.8"
+	}
+}
