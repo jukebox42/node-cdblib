@@ -1,31 +1,51 @@
 var CDB_Read = require('./../lib/cdblib').CDB_Reader;
 
-// Example 1 - normal select
-var reader = new CDB_Read({filepath:__dirname+'/testdb.cdb'}, function(cdb) {
-	cdb.find('zoom', function(value){console.log(value);});
-});
+// See testdb.txt if you want to spot check. it is the uncompressed version of the cdb file
 
-// Example 2 - cache results
-var reader2 = new CDB_Read({filepath:__dirname+'/testdb.cdb',cache:true}, function(cdb) {
-	cdb.find('red', function(value){console.log(value);});
-});
-
-// Example 3 - snag the 2nd instance of the key
-var reader3 = new CDB_Read({filepath:__dirname+'/testdb.cdb'}, function(cdb) {
-	cdb.find('red', function(value){console.log(value);},1);
-});
-
-// Example 4 - get a bunch
-var reader4 = new CDB_Read({filepath:__dirname+'/testdb.cdb'}, function(cdb) {
-	cdb.find('zoom', function(value){
-		console.log(value);
-		cdb.find('red', function(value){
-			console.log(value);
-			cdb.find('red', function(value){
-				console.log(value);
+exports["Reader Test"] = {
+	"Simple success test": function(test) {
+		var reader = new CDB_Read({filepath:__dirname+'/testdb.cdb'}, function(cdb) {
+			cdb.find('zoom', function(value) {
+				test.equal(value, 'Hey, I just met you', 'got correct value');
+				test.done();
 			});
 		});
-	});
-});
+	},
+	"Simple failure test": function(test) {
+		var reader = new CDB_Read({filepath:__dirname+'/testdb.cdb'}, function(cdb) {
+			cdb.find('nonono', function(value) {
+				test.equal(value, false, 'got false value');
+				test.done();
+			});
+		});
+	},
+	"Cache test": function(test) {
+		var reader = new CDB_Read({filepath:__dirname+'/testdb.cdb',cache:true}, function(cdb) {
+			cdb.find('red', function(value) {
+				test.equal(value, 'this is part two', 'got correct value');
+				test.done();
+			});
+		});
+	},
+	"Multi keys (get one) test": function(test) {
+		var reader = new CDB_Read({filepath:__dirname+'/testdb.cdb'}, function(cdb) {
+			cdb.find('red', function(value){
+				test.equal(value, 'so call me maybe', 'got correct value');
+				test.done();
+			},1);
+		});
+	},
+	"Multi keys find all test": function(test) { 
+		var reader4 = new CDB_Read({filepath:__dirname+'/testdb.cdb'}, function(cdb) {
+			cdb.find_all('red', function(value) {
+				test.equal(value.length, 2,  'got correct size');
+				var v = ['this is part two','so call me maybe'];
+				for(var i=0; i < 2; i++)
+					test.equal(value[i], v[i],  'got correct value');
+				test.done();
+			});
+		});
+	}
+};
 
 

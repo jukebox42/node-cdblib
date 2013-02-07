@@ -34,31 +34,27 @@ Through Git
 
 
 ## Documentation
-	CDB_Reader(opts, callback) - The CDB Reader object. returns a cdb object that has the fund and find_all functions
+CDB_Reader(opts, callback) - The CDB Reader object. returns a cdb object that has the fund and find_all functions
 
-	Options:
-		filepath (string) - string contains the path to the file (required)
-		cache (string) - boolean that when set to true will cache table location and size within the cdb. false by default. setting this will speed up the lookups at a small memory increase (optional)
+Options:
+	filepath (string) - string contains the path to the file (required)
+	cache (string) - boolean that when set to true will cache table location and size within the cdb. false by default. setting this will speed up the lookups at a small memory increase (optional)
 
-	CDB Functions:
-		find(key,callback,offset) - Finds the first instance of a key and returns the value in the callback. false if the key was not found.
-			key (string) - they key to look up the value for
-			callback (function) - The callback function. will contain one return value(string). false if key was not found
-			offset (int) - when dealing with CDB files with multiple of the same key tyou can use offset to traverse them. defaults to 0 (optional)
+CDB Functions:
+	find(key,callback,offset) - Finds the first instance of a key and returns the value in the callback. false if the key was not found.
+		key (string) - they key to look up the value for
+		callback (function) - The callback function. will contain one return value(string). false if key was not found
+		offset (int) - when dealing with CDB files with multiple of the same key tyou can use offset to traverse them. defaults to 0 (optional)
 
-		find_all(key, callback) - Finds all instances of a key and returns the array of values in the callback. false if they key was not found.
-			key (string) - they key to look up the value for
-			callback (function) - The callback function. will contain one return value(array). false if key was not found.
+	find_all(key, callback) - Finds all instances of a key and returns the array of values in the callback. false if they key was not found.
+		key (string) - they key to look up the value for
+		callback (function) - The callback function. will contain one return value(array). false if key was not found.
 
 ## Notes
-	- I do plan on adding the ability to write. Haven't got there yet.
-	- Has not been load tested yet. Getting there.
-	- Code is fully commented if you get curious.
-	- May contain bugs. Use at own risk.
-
-## Testing
-
-	npm test
+- I do plan on adding the ability to write. Haven't got there yet.
+- Has not been load tested yet. Getting there.
+- Code is fully commented if you get curious.
+- May contain bugs. Use at own risk.
 
 ## License
 
