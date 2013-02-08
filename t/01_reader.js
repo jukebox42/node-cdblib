@@ -57,7 +57,45 @@ exports["Reader Test"] = {
 					setTimeout(function() {
 						cdb.find('blue', function(value){
 							test.equal(value, 'they say robots are coming to tear us apart', 'got correct value');
+							reader = false;
 							test.done();
+						});
+					}, 1000);
+				});
+			});
+		}, 1000);
+	},
+	"Rotate cdb file test with cache": function(test) {
+		fs.createReadStream(__dirname+'/testdb.cdb').pipe(fs.createWriteStream(__dirname+'/rotateddb1.cdb'));
+		setTimeout(function() {
+			var reader = new CDB_Read({filepath:__dirname+'/rotateddb1.cdb', cache:true}, function(cdb) {
+				cdb.find('red', function(value){
+					test.equal(value, 'this is part two', 'got correct value');
+					fs.createReadStream(__dirname+'/testdb2.cdb').pipe(fs.createWriteStream(__dirname+'/rotateddb1.cdb'));
+					setTimeout(function() {
+						cdb.find('blue', function(value){
+							test.equal(value, 'they say robots are coming to tear us apart', 'got correct value');
+							test.done();
+						});
+					}, 1000);
+				});
+			});
+		}, 1000);
+	},
+	"Rotate cdb file test with cache and multiple lookups": function(test) {
+		fs.createReadStream(__dirname+'/testdb.cdb').pipe(fs.createWriteStream(__dirname+'/rotateddb2.cdb'));
+		setTimeout(function() {
+			var reader = new CDB_Read({filepath:__dirname+'/rotateddb2.cdb', cache:true}, function(cdb) {
+				cdb.find('red', function(value){
+					test.equal(value, 'this is part two', 'got correct value');
+					fs.createReadStream(__dirname+'/testdb2.cdb').pipe(fs.createWriteStream(__dirname+'/rotateddb2.cdb'));
+					setTimeout(function() {
+						cdb.find('blue', function(value){
+							test.equal(value, 'they say robots are coming to tear us apart', 'got correct value');
+							cdb.find('keys', function(value){
+								test.equal(value, 'they\'ll be landing on earth tommorrow', 'got correct value');
+								test.done();
+							});
 						});
 					}, 1000);
 				});

@@ -1,6 +1,6 @@
 {
 	"name": "node-cdblib",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Asynchronous reading from a Constant Database (CDB)",
 	"main": "./lib/cdblib.js",
 	"repository": {
