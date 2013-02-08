@@ -1,4 +1,5 @@
-var CDB_Read = require('./../lib/cdblib').CDB_Reader;
+var fs = require('fs'),
+	CDB_Read = require('./../lib/cdblib').CDB_Reader;
 
 // See testdb.txt if you want to spot check. it is the uncompressed version of the cdb file
 
@@ -36,7 +37,7 @@ exports["Reader Test"] = {
 		});
 	},
 	"Multi keys find all test": function(test) { 
-		var reader4 = new CDB_Read({filepath:__dirname+'/testdb.cdb'}, function(cdb) {
+		var reader = new CDB_Read({filepath:__dirname+'/testdb.cdb'}, function(cdb) {
 			cdb.find_all('red', function(value) {
 				test.equal(value.length, 2,  'got correct size');
 				var v = ['this is part two','so call me maybe'];
@@ -45,6 +46,23 @@ exports["Reader Test"] = {
 				test.done();
 			});
 		});
+	},
+	"Rotate cdb file test": function(test) {
+		fs.createReadStream(__dirname+'/testdb.cdb').pipe(fs.createWriteStream(__dirname+'/rotateddb.cdb'));
+		setTimeout(function() {
+			var reader = new CDB_Read({filepath:__dirname+'/rotateddb.cdb'}, function(cdb) {
+				cdb.find('red', function(value){
+					test.equal(value, 'this is part two', 'got correct value');
+					fs.createReadStream(__dirname+'/testdb2.cdb').pipe(fs.createWriteStream(__dirname+'/rotateddb.cdb'));
+					setTimeout(function() {
+						cdb.find('blue', function(value){
+							test.equal(value, 'they say robots are coming to tear us apart', 'got correct value');
+							test.done();
+						});
+					}, 1000);
+				});
+			});
+		}, 1000);
 	}
 };
 

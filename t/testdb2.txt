@@ -1,0 +1,5 @@
++3,20:one->Newsflash, newsflash
++4,43:blue->they say robots are coming to tear us apart
++4,37:keys->they'll be landing on earth tommorrow
++4,34:that->so we better get a good head start
+
