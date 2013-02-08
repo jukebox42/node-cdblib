@@ -20,7 +20,7 @@
 	},
 	"dependencies": {
 		"binary": "~0.3.0",
-		"bufferpack": "~0.0.6"
+		"bufferpack": "~0.0.6",
 		"node-watch": "~0.2.6"
 	},
 	"devDependencies": {
