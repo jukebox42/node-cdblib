@@ -39,8 +39,6 @@ CDB_Reader(opts, callback) - The CDB Reader object. returns a cdb object that ha
 - filepath (string) - string contains the path to the file (required)
 - cache (string) - boolean that when set to true will cache table location and size within the cdb. false by default. setting this will speed up the lookups at a small memory increase (optional)
 
-**note:** if your cdb file gets rotated or updated during the run process cache won't work. this will be fixed eventually.
-
 **CDB Functions:**
 
 find(key,callback,offset) - Finds the first instance of a key and returns the value in the callback. false if the key was not found.
@@ -58,7 +56,7 @@ find_all(key, callback) - Finds all instances of a key and returns the array of 
 	callback (function) - The callback function. will contain one return value(array). false if key was not found.
 
 ## Notes
-- On init a watcher will monitor the CDB file for changes/replacements and will restart a request if it occurs. This will allow you to replace the CDB file on the fly without pausing or otherwaise haulting the process. Please note that for the moment this feature does not work when cache is true. Future versions will correct this.
+- On init a watcher will monitor the CDB file for changes/replacements and will restart a request if it occurs. This will allow you to replace the CDB file on the fly without pausing or otherwaise haulting the process. Please note that for the moment this feature does not work when cache is true. this feature also may cause strange results when using find_all since it wont retry the entire find_all request. Future versions will correct this.
 - I do plan on adding the ability to write. Haven't got there yet.
 - Has not been load tested yet. Getting there.
 - Code is fully commented if you get curious.
